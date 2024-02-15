@@ -1,6 +1,6 @@
 import struct
 
-def read_varint(s):
+def read_variant(s):
     i = s[0]
     if i == 0xfd:
         return struct.unpack('<H', s[1:3])[0], s[3:]
@@ -14,7 +14,7 @@ def read_varint(s):
 def parse_tx_input(s):
     prev_tx_hash = s[:32][::-1]  # Reverse for endianness
     output_index = struct.unpack('<I', s[32:36])[0]
-    script_length, s = read_varint(s[36:])
+    script_length, s = read_variant(s[36:])
     script_sig = s[:script_length]
     sequence, s = struct.unpack('<I', s[script_length:script_length+4]), s[script_length+4:]
     return {
@@ -28,7 +28,7 @@ def parse_tx_input(s):
 
 def parse_tx_output(s):
     value = struct.unpack('<Q', s[:8])[0]
-    script_length, s = read_varint(s[8:])
+    script_length, s = read_variant(s[8:])
     script_pub_key = s[:script_length]
     s = s[script_length:]
     return {
@@ -50,13 +50,13 @@ def parse_raw_transaction(hex_tx):
         segwit = True
         s = s[2:]  # Skip past the SegWit flag and marker
 
-    input_count, s = read_varint(s)
+    input_count, s = read_variant(s)
     inputs = []
     for _ in range(input_count):
         tx_input, s = parse_tx_input(s)
         inputs.append(tx_input)
     
-    output_count, s = read_varint(s)
+    output_count, s = read_variant(s)
     outputs = []
     for _ in range(output_count):
         tx_output, s = parse_tx_output(s)
