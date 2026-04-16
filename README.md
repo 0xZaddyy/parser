@@ -30,4 +30,7 @@ This Python script parses Bitcoin transactions and extracts relevant information
 readme info by shehu
 
 
+second commit by me 
+
+
 
