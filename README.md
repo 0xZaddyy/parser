@@ -27,7 +27,7 @@ This Python script parses Bitcoin transactions and extracts relevant information
     ```
     python3 tnxparser.py
     ```
-
+readme info by shehu
 
 
 
