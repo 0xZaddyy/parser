@@ -2,7 +2,7 @@
 
 This Python script parses Bitcoin transactions and extracts relevant information such as inputs, outputs, and transaction details.
 
-## Installation steps
+## Installation stepsss
 
 1. Ensure you have Python 3 installed on your system.
 
